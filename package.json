@@ -1,0 +1,14 @@
+{
+  "name": "qr-node-mobile",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "qrcode": "^1.5.4",
+    "xlsx": "^0.18.5"
+  }
+}

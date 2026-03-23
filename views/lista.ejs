@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap');
+:root {
+  --bg: #0b1020;
+  --panel: #111a31;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #22c55e;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  color: var(--text);
+  background: radial-gradient(900px 480px at 15% -5%, #1f2a44 0%, transparent 60%),
+              radial-gradient(900px 400px at 90% 10%, #1a2b5a 0%, transparent 55%),
+              var(--bg);
+  min-height: 100vh;
+}
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 18px 48px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+.badge {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(34,197,94,0.15);
+  color: #86efac;
+}
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0 18px;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  color: #0b1020;
+  background: var(--accent);
+}
+.button.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(148,163,184,0.35);
+}
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  border: 1px solid rgba(148,163,184,0.2);
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.name { font-weight: 600; }
+.time { color: var(--muted); font-size: 13px; font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
+.empty {
+  color: var(--muted);
+  padding: 18px;
+  border: 1px dashed rgba(148,163,184,0.3);
+  border-radius: 14px;
+  text-align: center;
+}
+@media (max-width: 520px) {
+  .actions { grid-template-columns: 1fr; }
+  .title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <h2 class="title">Lista de asistencia</h2>
+      <span class="badge">Sesion <%= sesion %></span>
+    </div>
+
+    <div class="actions">
+      <a class="button" href="/excel/<%= sesion %>">Excel de sesion</a>
+      <a class="button ghost" href="/excel-dia">Excel del dia</a>
+    </div>
+
+    <% if (!lista || lista.length === 0) { %>
+      <div class="empty">Aun no hay registros</div>
+    <% } %>
+
+    <% lista.forEach(a => { %>
+      <div class="card">
+        <div class="name"><%= a.nombre %></div>
+        <div class="time"><%= new Date(a.hora).toLocaleTimeString() %></div>
+      </div>
+    <% }) %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap');
+:root {
+  --bg: #0b1020;
+  --panel: #111a31;
+  --panel-2: #0f1527;
+  --accent: #22c55e;
+  --accent-2: #60a5fa;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 500px at 20% -10%, #1f2a44 0%, transparent 60%),
+              radial-gradient(900px 400px at 90% 10%, #1a2b5a 0%, transparent 55%),
+              var(--bg);
+  min-height: 100vh;
+}
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 24px 18px 48px;
+}
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.title {
+  font-size: 28px;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.badge {
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(96,165,250,0.15);
+  color: #bfdbfe;
+}
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  border: 1px solid rgba(148,163,184,0.2);
+  border-radius: 22px;
+  padding: 20px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+.qr {
+  background: #0b1020;
+  border-radius: 16px;
+  padding: 12px;
+  display: inline-block;
+  margin-top: 8px;
+  border: 1px solid rgba(148,163,184,0.2);
+}
+.url {
+  font-family: "DM Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--muted);
+  word-break: break-all;
+  margin: 10px 0 18px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  color: #0b1020;
+  background: var(--accent);
+  box-shadow: 0 8px 20px rgba(34,197,94,0.25);
+}
+.button.secondary {
+  background: #e2e8f0;
+}
+.button.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(148,163,184,0.35);
+  box-shadow: none;
+}
+@media (max-width: 520px) {
+  .grid { grid-template-columns: 1fr; }
+  .title { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1 class="title">Panel de Asistencia</h1>
+      <span class="badge">Dia <%= fecha %></span>
+    </div>
+
+    <div class="card">
+      <h2 style="margin:0 0 6px; font-size:18px; font-weight:600;">QR de sesion</h2>
+      <div class="qr">
+        <img src="<%= qr %>" width="220">
+      </div>
+      <div class="url"><%= url %></div>
+
+      <div class="grid">
+        <a class="button" href="/admin">Nuevo QR</a>
+        <a class="button secondary" href="/ver/<%= id %>">Ver lista</a>
+        <a class="button ghost" href="/excel/<%= id %>">Excel de sesion</a>
+        <a class="button ghost" href="/excel-dia">Excel del dia</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
