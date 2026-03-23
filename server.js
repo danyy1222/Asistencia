@@ -1,11 +1,13 @@
 const express = require("express");
 const QRCode = require("qrcode");
 const XLSX = require("xlsx");
+const path = require("path");
 
 const app = express();
 app.set("trust proxy", true);
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 const TIMEZONE = process.env.APP_TZ || "America/Lima";
 const BASE_URL = process.env.BASE_URL || "";
