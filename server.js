@@ -62,8 +62,10 @@ app.get("/asistencia/:id", (req, res) => {
 });
 
 app.post("/registrar", async (req, res) => {
-  const { nombre, sesion, ip } = req.body;
+  const { nombre, sesion, ip: ipBody } = req.body;
   const ahora = Date.now();
+  const ipHeader = req.headers["x-forwarded-for"];
+  const ip = (ipHeader ? ipHeader.split(",")[0].trim() : req.ip) || ipBody || "0.0.0.0";
 
   const dia = dateKey(ahora);
   const listaSesion = listBySesion(sesion);
@@ -72,7 +74,7 @@ app.post("/registrar", async (req, res) => {
   const existe = listaSesion.find(a => a.nombre === nombre && a.sesion === sesion);
   if (existe) return res.send("Ya registrado");
 
-  const ipReciente = listaDia.find(a => a.ip === ip && (ahora - a.hora) < 5*60*1000);
+  const ipReciente = ip && listaDia.find(a => a.ip === ip && (ahora - a.hora) < 5*60*1000);
   if (ipReciente) return res.send("Espera unos minutos");
 
   const registro = { nombre, sesion, ip, hora: ahora, dia };
